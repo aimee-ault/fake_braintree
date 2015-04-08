@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'pry'
 require 'active_support/core_ext/hash/conversions'
 require 'fake_braintree/customer'
 require 'fake_braintree/subscription'
@@ -235,6 +236,13 @@ module FakeBraintree
     post '/merchants/:merchant_id/transparent_redirect_requests/:id/confirm' do
       redirect = FakeBraintree.registry.redirects[params[:id]]
       redirect.confirm
+    end
+    
+    # Braintree::ClientToken.generate
+    post '/merchants/:merchant_id/client_token' do
+      token = SecureRandom.hex(748)
+      token_response = { value: token }.to_xml(root: :client_token)
+      gzipped_response(200, token_response)
     end
   end
 end

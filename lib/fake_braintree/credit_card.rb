@@ -6,6 +6,7 @@ module FakeBraintree
     include Helpers
 
     def initialize(credit_card_hash_from_params, options)
+      binding.pry
       set_up_credit_card(credit_card_hash_from_params, options)
       set_billing_address
       set_bin

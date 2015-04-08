@@ -90,7 +90,23 @@ describe 'Braintree::PaymentMethod.create' do
       expect(@customer.credit_cards.length).to eq 2
     end
   end
+  
+  context 'with a payment nonce' do
+    before do
+      @customer = Braintree::Customer.create.customer
+    end
+    
+    it 'successfully creates a credit card' do
+      nonce = FakeBraintree::PaymentMethod.tokenize_card(build_credit_card_hash)
+      result = Braintree::PaymentMethod.create(payment_method_nonce: nonce, customer_id: @customer.id)
 
+      expect(result).to be_success
+      expect(Braintree::Customer.find(@customer.id).credit_cards.last.token).to eq 'token'
+      expect(Braintree::Customer.find(@customer.id).credit_cards.last).to be_default
+      expect(Braintree::Customer.find(@customer.id).credit_cards.last.billing_address.postal_code).to eq "94110"
+    end
+  end
+  
   def build_credit_card_hash
     {
       number: '4111111111111111',
