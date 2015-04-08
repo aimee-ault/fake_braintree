@@ -214,6 +214,11 @@ Thank you to all [the contributors](https://github.com/thoughtbot/fake_braintree
 
 The names and logos for thoughtbot are trademarks of thoughtbot, inc.
 
+By participating in this project,
+you agree to abide by the thoughtbot [code of conduct].
+
+[code of conduct]: https://thoughtbot.com/open-source-code-of-conduct
+
 License
 -------
 
